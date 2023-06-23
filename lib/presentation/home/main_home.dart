@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/core/color_const.dart';
 import 'package:weather_app/core/const_widget.dart';
 import 'package:weather_app/presentation/home/widgets/basic_details.dart';
+import 'package:weather_app/presentation/home/widgets/for_forecast.dart';
 import 'package:weather_app/presentation/home/widgets/weather_image.dart';
 import 'package:weather_app/presentation/widgets/for_icon.dart';
 import 'package:weather_app/presentation/widgets/for_text.dart';
@@ -49,115 +50,87 @@ class HomePage extends StatelessWidget {
                   mainTitle: 'UV Index',
                   subTitle: '2,3'),
             ],
-          ) // Work with
-
-          // DefaultTabController(
-          //   length: 3,
-          //   child: Column(
-          //     children: [
-          //       Material(
-          //         child: Container(
-          //           height: 80,
-          //           color: bacColor,
-          //           child: TabBar(
-          //               padding: const EdgeInsets.only(
-          //                 top: 20,
-          //                 left: 10,
-          //                 right: 10,
-          //                 bottom: 23,
-          //               ),
-          //               physics: const ClampingScrollPhysics(),
-          //               unselectedLabelColor: kWhite,
-          //               indicatorSize: TabBarIndicatorSize.label,
-          //               indicator: BoxDecoration(
-          //                   borderRadius: BorderRadius.circular(30),
-          //                   color: tabSelColor),
-          //               tabs: [
-          //                 Tab(
-          //                   child: Container(
-          //                     height: 35,
-          //                     decoration: BoxDecoration(
-          //                         borderRadius: BorderRadius.circular(30),
-          //                         border: Border.all()),
-          //                     child: Align(
-          //                       alignment: Alignment.center,
-          //                       child: ForText(
-          //                           weight: FontWeight.normal,
-          //                           content: "Today",
-          //                           color: kBlack,
-          //                           size: 12),
-          //                     ),
-          //                   ),
-          //                 ),
-          //                 Tab(
-          //                   child: Container(
-          //                     height: 35,
-          //                     // color: kWhite,
-          //                     decoration: BoxDecoration(
-          //                         borderRadius: BorderRadius.circular(30),
-          //                         border: Border.all(
-          //                           // color: kWhite,
-          //                           width: 1,
-          //                         )),
-          //                     child: Align(
-          //                       alignment: Alignment.center,
-          //                       child: ForText(
-          //                           weight: FontWeight.normal,
-          //                           content: "Tomorrow",
-          //                           color: kBlack,
-          //                           size: 12),
-          //                     ),
-          //                   ),
-          //                 ),
-          //                 Tab(
-          //                   child: Container(
-          //                     height: 35,
-          //                     decoration: BoxDecoration(
-          //                         borderRadius: BorderRadius.circular(30),
-          //                         border: Border.all(
-          //                           // color: kWhite,
-          //                           width: 1,
-          //                         )),
-          //                     child: Align(
-          //                       alignment: Alignment.center,
-          //                       child: ForText(
-          //                           weight: FontWeight.normal,
-          //                           content: "10 Days",
-          //                           color: kBlack,
-          //                           size: 12),
-          //                     ),
-          //                   ),
-          //                 ),
-          //               ]),
-          //         ),
-          //       ),
-          //       // TabBarView(
-          //       //   children: [
-          //       //     Center(
-          //       //       child: Text("Content for Today"),
-          //       //     ),
-          //       //     Center(
-          //       //       child: Text("Content for Tomorrow"),
-          //       //     ),
-          //       //     Center(
-          //       //       child: Text("Content for 10 Days"),
-          //       //     ),
-          //       //   ],
-          //       // ),
-          //       // TabBarView(children: [
-          //       //   Center(
-          //       //     child: Text("dfdfbdbg"),
-          //       //   ),
-          //       //   Center(
-          //       //     child: Text("dfdfbdbg"),
-          //       //   ),
-          //       //   Center(
-          //       //     child: Text("dfdfbdbg"),
-          //       //   ),
-          //       // ])
-          //     ],
-          //   ),
-          // )
+          ), // Work with
+          homeGapOne,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 170,
+                width: 360,
+                decoration: BoxDecoration(
+                  color: infoColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 10,
+                      top: 10,
+                      child: ForIcon(
+                        color: kBlack,
+                        size: 24,
+                        icon: Icons.access_time_outlined,
+                      ),
+                    ),
+                    Positioned(
+                        left: 40,
+                        top: 10,
+                        child: ForText(
+                            weight: FontWeight.normal,
+                            content: 'Hourly forecast',
+                            color: kBlack,
+                            size: 15)),
+                    const Positioned(
+                      left: 10,
+                      top: 40,
+                      child: ForecastDetails(
+                          image:
+                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
+                          status: "10^",
+                          when: "Now"),
+                    ),
+                    const Positioned(
+                      left: 70,
+                      top: 40,
+                      child: ForecastDetails(
+                          image:
+                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
+                          status: "10^",
+                          when: "12 PM"),
+                    ),
+                    const Positioned(
+                      left: 140,
+                      top: 40,
+                      child: ForecastDetails(
+                          image:
+                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
+                          status: "10^",
+                          when: "12 PM"),
+                    ),
+                    const Positioned(
+                      left: 210,
+                      top: 40,
+                      child: ForecastDetails(
+                          image:
+                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
+                          status: "10^",
+                          when: "12 PM"),
+                    ),
+                    const Positioned(
+                      left: 280,
+                      top: 40,
+                      child: ForecastDetails(
+                          image:
+                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
+                          status: "10^",
+                          when: "12 PM"),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

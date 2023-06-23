@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/presentation/widgets/for_icon.dart';
 import 'package:weather_app/presentation/widgets/for_text.dart';
@@ -20,22 +21,35 @@ class WeatherImage extends StatelessWidget {
             image: AssetImage(image),
             fit: BoxFit.fill,
           ),
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(35),
               bottomRight: Radius.circular(35))),
       child: Stack(
         children: [
-          ListTile(
-            title: ForText(
+          Positioned(
+              top: 20,
+              left: 20,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  height: 50,
+                  width: 350,
+                  color: bacColor,
+                  child: const CupertinoSearchTextField(
+                    style: TextStyle(color: kBlack),
+                    itemSize: 26,
+                    itemColor: kBlack,
+                  ),
+                ),
+              )),
+          Positioned(
+            left: 10,
+            top: 80,
+            child: ForText(
               weight: FontWeight.bold,
               content: "Palakkad",
               color: kWhite,
               size: 25,
-            ),
-            trailing: ForIcon(
-              color: kWhite,
-              size: 30,
-              icon: Icons.search,
             ),
           ),
           Positioned(
