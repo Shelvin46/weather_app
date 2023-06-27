@@ -23,14 +23,14 @@ class ForecastDetails extends StatelessWidget {
             weight: FontWeight.normal, content: when, color: kBlack, size: 15),
         foreSmallGap,
         CircleAvatar(
-          backgroundImage: AssetImage(image),
+          backgroundImage: NetworkImage('https:$image'),
         ),
         foreSmallGap,
         ForText(
             weight: FontWeight.normal,
             content: status,
             color: kBlack,
-            size: 24),
+            size: 20),
       ],
     );
   }

@@ -12,6 +12,7 @@ class SearchState {
   dynamic chanceOfRain;
   double pressure;
   dynamic uv;
+  List<Map<String, dynamic>> forForecast;
 
   SearchState(
       {required this.isLoading,
@@ -23,21 +24,22 @@ class SearchState {
       required this.chanceOfRain,
       required this.pressure,
       required this.uv,
-      required this.windKmp});
+      required this.windKmp,
+      required this.forForecast});
 }
 
 class SearchInitial extends SearchState {
   SearchInitial()
       : super(
-          isLoading: true,
-          date: '',
-          dayOrNight: 0,
-          feelsLike: 0,
-          place: "",
-          temperature: 0,
-          chanceOfRain: 0,
-          pressure: 0,
-          uv: 0,
-          windKmp: 0,
-        );
+            isLoading: true,
+            date: '',
+            dayOrNight: 0,
+            feelsLike: 0,
+            place: "",
+            temperature: 0,
+            chanceOfRain: 0,
+            pressure: 0,
+            uv: 0,
+            windKmp: 0,
+            forForecast: []);
 }

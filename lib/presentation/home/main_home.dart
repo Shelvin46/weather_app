@@ -84,85 +84,89 @@ class HomePage extends StatelessWidget {
             },
           ),
           homeGapOne,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 170,
-                width: 360,
-                decoration: BoxDecoration(
-                  color: infoColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 10,
-                      top: 10,
-                      child: ForIcon(
-                        color: kBlack,
-                        size: 24,
-                        icon: Icons.access_time_outlined,
-                      ),
+          BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              if (state.isLoading == true) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 170,
+                    width: 360,
+                    decoration: BoxDecoration(
+                      color: infoColor,
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    Positioned(
-                        left: 40,
-                        top: 10,
-                        child: ForText(
-                            weight: FontWeight.normal,
-                            content: 'Hourly forecast',
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 10,
+                          top: 10,
+                          child: ForIcon(
                             color: kBlack,
-                            size: 15)),
-                    const Positioned(
-                      left: 10,
-                      top: 40,
-                      child: ForecastDetails(
-                          image:
-                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
-                          status: "10^",
-                          when: "Now"),
+                            size: 24,
+                            icon: Icons.access_time_outlined,
+                          ),
+                        ),
+                        Positioned(
+                            left: 40,
+                            top: 10,
+                            child: ForText(
+                                weight: FontWeight.normal,
+                                content: 'Hourly forecast',
+                                color: kBlack,
+                                size: 15)),
+                        Positioned(
+                          left: 10,
+                          top: 40,
+                          child: ForecastDetails(
+                              image: state.forForecast[0]['icon'].toString(),
+                              status: state.forForecast[0]['temp'].toString(),
+                              when: state.forForecast[0]['time'].toString()),
+                        ),
+                        Positioned(
+                          left: 70,
+                          top: 40,
+                          child: ForecastDetails(
+                              image: state.forForecast[1]['icon'].toString(),
+                              status: state.forForecast[1]['temp'].toString(),
+                              when: state.forForecast[1]['time'].toString()),
+                        ),
+                        Positioned(
+                          left: 140,
+                          top: 40,
+                          child: ForecastDetails(
+                              image: state.forForecast[2]['icon'].toString(),
+                              status: state.forForecast[2]['temp'].toString(),
+                              when: state.forForecast[2]['time'].toString()),
+                        ),
+                        Positioned(
+                          left: 210,
+                          top: 40,
+                          child: ForecastDetails(
+                            image: state.forForecast[3]['icon'].toString(),
+                            status: state.forForecast[3]['temp'].toString(),
+                            when: state.forForecast[3]['time'].toString(),
+                          ),
+                        ),
+                        Positioned(
+                          left: 280,
+                          top: 40,
+                          child: ForecastDetails(
+                              image: state.forForecast[4]['icon'].toString(),
+                              status: state.forForecast[4]['temp'].toString(),
+                              when: state.forForecast[4]['time'].toString()),
+                        ),
+                      ],
                     ),
-                    const Positioned(
-                      left: 70,
-                      top: 40,
-                      child: ForecastDetails(
-                          image:
-                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
-                          status: "10^",
-                          when: "12 PM"),
-                    ),
-                    const Positioned(
-                      left: 140,
-                      top: 40,
-                      child: ForecastDetails(
-                          image:
-                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
-                          status: "10^",
-                          when: "12 PM"),
-                    ),
-                    const Positioned(
-                      left: 210,
-                      top: 40,
-                      child: ForecastDetails(
-                        image:
-                            'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
-                        status: "10^",
-                        when: "12 PM",
-                      ),
-                    ),
-                    const Positioned(
-                      left: 280,
-                      top: 40,
-                      child: ForecastDetails(
-                          image:
-                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
-                          status: "10^",
-                          when: "12 PM"),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                  )
+                ],
+              );
+            },
           )
         ],
       ),

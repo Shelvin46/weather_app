@@ -14,6 +14,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchInitial()) {
     on<InitialResponse>((event, emit) async {
       emit(SearchState(
+        forForecast: [],
         isLoading: true,
         date: '',
         dayOrNight: 0,
@@ -35,21 +36,24 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       int limit = finding + 5;
       List<Hour> hourList = response.forecast.forecastday[0].hour;
       for (finding; finding < limit; finding++) {
+        String time = "";
         if (finding == forChecking) {
-          forForecastList.add({
-            "time": 'Now',
-            "icon": hourList[finding].condition.icon,
-            "temp": hourList[finding].tempC
-          });
-        } else {
-          forForecastList.add({
-            "time": finding,
-            "icon": hourList[finding].condition.icon,
-            "temp": hourList[finding].tempC
-          });
+          time = 'Now';
+        } else if (finding >= 0 && finding < 12) {
+          time = '$finding am';
+        } else if (finding >= 12) {
+          time = '$finding pm';
         }
+        forForecastList.add({
+          'time': time,
+          'icon': hourList[finding].condition.icon,
+          'temp': hourList[finding].tempC,
+        });
       }
+
+      log(forForecastList.toString());
       emit(SearchState(
+          forForecast: forForecastList,
           isLoading: false,
           date: response.location.localtime.split(' ')[0],
           dayOrNight: response.current.isDay,
