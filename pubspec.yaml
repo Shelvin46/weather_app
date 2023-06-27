@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.3
   http: ^1.0.0
+  lottie: ^2.4.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +66,10 @@ flutter:
   assets:
      - assets/images.jpeg
      - assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg
+     - assets/46361-weather-icon-mostly-sunny.json
+     - assets/8595-weather-app-animation.json
+     - assets/81750-weather.json
+     - assets/ivan-ulamec-F-kdP4Hk7lg-unsplash.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

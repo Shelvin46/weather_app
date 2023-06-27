@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:weather_app/application/search_bloc.dart';
 import 'package:weather_app/core/color_const.dart';
 import 'package:weather_app/core/const_widget.dart';
+import 'package:weather_app/infrastructure/search/search_implementation.dart';
 import 'package:weather_app/presentation/home/widgets/basic_details.dart';
 import 'package:weather_app/presentation/home/widgets/for_forecast.dart';
 import 'package:weather_app/presentation/home/widgets/weather_image.dart';
@@ -12,45 +16,73 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<SearchBloc>(context).add(InitialResponse(query: "kochi"));
+    });
     return Scaffold(
       backgroundColor: bacColor,
       body: ListView(
         children: [
-          WeatherImage(
-            image: 'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
+          BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              if (state.isLoading == true) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              return WeatherImage(
+                state: state,
+                image: 'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
+              );
+            },
           ),
           homeGapOne,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              BasicDetails(
-                  icon: Icons.wind_power_rounded,
-                  edgeTitle: "2km/h",
-                  mainTitle: 'Wind speed',
-                  subTitle: '12km/h'),
-              BasicDetails(
-                  icon: Icons.cloudy_snowing,
-                  edgeTitle: "10%",
-                  mainTitle: 'Rain Chance',
-                  subTitle: '24%'),
-            ],
+          BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              if (state.isLoading == true) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      BasicDetails(
+                          icon: Icons.wind_power_rounded,
+                          edgeTitle: "",
+                          mainTitle: 'Wind speed',
+                          subTitle: state.windKmp.toString() + ' Km/h'),
+                      BasicDetails(
+                          icon: Icons.cloudy_snowing,
+                          edgeTitle: "",
+                          mainTitle: 'Rain Chance',
+                          subTitle: state.chanceOfRain.toString() + ' %'),
+                    ],
+                  ),
+                  homeGapOne,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      BasicDetails(
+                          icon: Icons.speed,
+                          edgeTitle: "",
+                          mainTitle: 'Pressure',
+                          subTitle: state.pressure.toString() + ' hpa'),
+                      BasicDetails(
+                        icon: Icons.sunny,
+                        edgeTitle: "",
+                        mainTitle: 'UV Index',
+                        subTitle: state.uv.toString(),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
           ),
-          homeGapOne,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              BasicDetails(
-                  icon: Icons.laptop_windows_outlined,
-                  edgeTitle: "32 hpa",
-                  mainTitle: 'Pressure',
-                  subTitle: '720 hpa'),
-              BasicDetails(
-                  icon: Icons.sunny,
-                  edgeTitle: "0.3",
-                  mainTitle: 'UV Index',
-                  subTitle: '2,3'),
-            ],
-          ), // Work with
           homeGapOne,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -112,10 +144,11 @@ class HomePage extends StatelessWidget {
                       left: 210,
                       top: 40,
                       child: ForecastDetails(
-                          image:
-                              'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
-                          status: "10^",
-                          when: "12 PM"),
+                        image:
+                            'assets/jonathan-bowers-BqKdvJ8a5TI-unsplash.jpg',
+                        status: "10^",
+                        when: "12 PM",
+                      ),
                     ),
                     const Positioned(
                       left: 280,

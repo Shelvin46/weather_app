@@ -1,18 +1,32 @@
+import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:weather_app/application/search_bloc.dart';
 import 'package:weather_app/presentation/widgets/for_icon.dart';
 import 'package:weather_app/presentation/widgets/for_text.dart';
 
 import '../../../core/color_const.dart';
 
 class WeatherImage extends StatelessWidget {
-  WeatherImage({super.key, required this.image});
+  WeatherImage({super.key, required this.image, required this.state});
   String image;
+  SearchState state;
 
   @override
   Widget build(BuildContext context) {
+    String day = state.dayOrNight.toString();
+    String dateString = state.date;
+    DateTime dateTime = DateTime.parse(dateString);
+    DateFormat format = DateFormat('MMMM d');
+    String newDate = format.format(dateTime);
+    String dayChecking = "";
+    if (state.dayOrNight == 1) {
+      dayChecking = 'Day';
+    } else {
+      dayChecking = 'Night';
+    }
+    // log(state.date);
     return Container(
       width: 200,
       height: 400,
@@ -47,7 +61,7 @@ class WeatherImage extends StatelessWidget {
             top: 80,
             child: ForText(
               weight: FontWeight.bold,
-              content: "Palakkad",
+              content: state.place,
               color: kWhite,
               size: 25,
             ),
@@ -59,7 +73,7 @@ class WeatherImage extends StatelessWidget {
                 children: [
                   ForText(
                       weight: FontWeight.bold,
-                      content: "3^",
+                      content: state.temperature.toString(),
                       color: kWhite,
                       size: 80),
                   const SizedBox(
@@ -67,7 +81,7 @@ class WeatherImage extends StatelessWidget {
                   ),
                   ForText(
                       weight: FontWeight.normal,
-                      content: "Feels like -2^",
+                      content: state.feelsLike.toString(),
                       color: kWhite,
                       size: 20),
                 ],
@@ -77,7 +91,7 @@ class WeatherImage extends StatelessWidget {
               top: 310,
               child: ForText(
                   weight: FontWeight.normal,
-                  content: "Day 3",
+                  content: "Day $day",
                   color: kWhite,
                   size: 20)),
           Positioned(
@@ -85,7 +99,7 @@ class WeatherImage extends StatelessWidget {
               top: 340,
               child: ForText(
                   weight: FontWeight.normal,
-                  content: "January 18, 18:29",
+                  content: newDate,
                   color: kWhite,
                   size: 20)),
           Positioned(
@@ -93,7 +107,7 @@ class WeatherImage extends StatelessWidget {
               top: 340,
               child: ForText(
                   weight: FontWeight.normal,
-                  content: "Night",
+                  content: dayChecking,
                   color: kWhite,
                   size: 20))
         ],
