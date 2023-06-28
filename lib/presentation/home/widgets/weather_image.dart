@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/application/search_bloc.dart';
 import 'package:weather_app/presentation/widgets/for_icon.dart';
@@ -49,7 +50,12 @@ class WeatherImage extends StatelessWidget {
                   height: 50,
                   width: 350,
                   color: bacColor,
-                  child: const CupertinoSearchTextField(
+                  child: CupertinoSearchTextField(
+                    onSubmitted: (value) {
+                      context
+                          .read<SearchBloc>()
+                          .add(SearchInitialize(query: value));
+                    },
                     style: TextStyle(color: kBlack),
                     itemSize: 26,
                     itemColor: kBlack,
@@ -81,7 +87,7 @@ class WeatherImage extends StatelessWidget {
                   ),
                   ForText(
                       weight: FontWeight.normal,
-                      content: state.feelsLike.toString(),
+                      content: 'Feels Like ${state.feelsLike}',
                       color: kWhite,
                       size: 20),
                 ],

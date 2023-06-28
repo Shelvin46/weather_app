@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
           BlocBuilder<SearchBloc, SearchState>(
             builder: (context, state) {
               if (state.isLoading == true) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
           BlocBuilder<SearchBloc, SearchState>(
             builder: (context, state) {
               if (state.isLoading == true) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
                           icon: Icons.speed,
                           edgeTitle: "",
                           mainTitle: 'Pressure',
-                          subTitle: state.pressure.toString() + ' hpa'),
+                          subTitle: '${state.pressure} hpa'),
                       BasicDetails(
                         icon: Icons.sunny,
                         edgeTitle: "",
@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
           BlocBuilder<SearchBloc, SearchState>(
             builder: (context, state) {
               if (state.isLoading == true) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
